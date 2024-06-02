@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>LOVE LETTER</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jscex.min.js"></script>
+    <script type="text/javascript" src="js/jscex-parser.js"></script>
+    <script type="text/javascript" src="js/jscex-jit.js"></script>
+    <script type="text/javascript" src="js/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="js/jscex-async.min.js"></script>
+    <script type="text/javascript" src="js/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="js/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/love.js" charset="utf-8"></script>
+    　　
+    <link rel="shortcut icon" href="images/love.ico" />
+    <link rel="bookmark" href="/mages/love.ico" />
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffe;
+            font-size: 11px;
+            font-family: '微软雅黑', '宋体', sans-serif;
+            color: #231F20;
+            overflow: auto
+        }
+
+        a {
+            color: #000;
+            font-size: 14px;
+        }
+
+        #main {
+            width: 100%;
+        }
+
+        #wrap {
+            position: relative;
+            margin: 0 auto;
+            width: 1100px;
+            height: 680px;
+            margin-top: 10px;
+        }
+
+        #text {
+            width: 420px;
+            height: 425px;
+            left: 50px;
+            top: 50px;
+            position: absolute;
+        }
+
+        #code {
+            display: none;
+            font-size: 14px;
+        }
+
+        #clock-box {
+            position: absolute;
+            left: 60px;
+            top: 560px;
+            font-size: 23px;
+            display: none;
+        }
+
+        #clock-box a {
+            font-size: 19px;
+            text-decoration: none;
+        }
+
+        #clock {
+            margin-left: 28px;
+            font-size: 14px;
+        }
+
+        #clock .digit {
+            font-size: 35px;
+        }
+
+        #canvas {
+            margin: 0 auto;
+            width: 1100px;
+            height: 660px;
+        }
+
+        #error {
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 60px;
+            display: none;
+        }
+
+        .hand {
+            cursor: pointer;
+        }
+
+        .say {
+            margin-left: 5px;
+        }
+
+        .space {
+            margin-right: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bgm" src="raw/You're still the one.mp3" type="audio/mpeg" loop="loop">the oneBGM</audio>
+    <div id="main">
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <font color="#850F8D">
+                        <span class="say">Tahukah kamu,sayanggggku? </span><br>
+                        <span class="say">Bertemu denganmu merupakan</span><br>
+                        <span class="say">keberuntungan terbesar dalam hidupku♥</span><br><br>
+                        <span class="say">Ingat...</span><br>
+                        <span class="say">"Saat kita mengunjungi berbagai tempat bersama</span><br>
+                        <span class="say">Disela kesibukan kita masing",engkau rela</span><br>
+                        <span class="say">meluangkan waktumu demi keegoisanku.</span><br><br>
+                        <span class="say">"Kita berdebat kemudian berdamai kembali</span><br>
+                        <span class="say">dan saling mengintropeksi diri.</span><br><br>
+                        <span class="say">"Aku ingin...ingin terus bersamamu</span><br>
+                        <span class="say">Menggenggam tanganmuu dengan erat dan tidak</span><br>
+                        <span class="say">ingin melepaskannya,berjalan melewati segala rintangan bersama.</span><br><br>
+                        <span class="say">"Maaf atas semua kesalahan dan keegoisanku</span><br>
+                        <span class="say">kamu mungkin sedang merasa bimbang,stress,sedih,...</span><br>
+                        <span class="say">jangan sampai perasaan itu berlarut,aku selalu ada untukmu</span><br><br>
+                        <span class="say">"Aku sangat,sangat mencintaimu dari lubuk hatiku yg terdalam</span><br><br>
+                        <span class="say">"kan kuserahkan semua cintaku hanya untukmu seorang</span><br>
+                        <span class="say"><span class="space"></span>I Love You -- OLON </span>
+
+                    </font>
+                </div>
+            </div>
+            <div id="clock-box">
+                <span>
+                    <font color="black">Sudah sekian hari kita bersama...</font>
+                </span>
+                <div id="clock"></div>
+            </div>
+            <canvas id="canvas" width="1100" height="660"></canvas>
+        </div>
+    </div>
+    <script>
+        var year = 2024;
+        var month = 2;
+        var day = 18;
+        var hour = 19;
+        var minute = 23;
+        var second = 0;
+        var auto_load = true;
+        var auto_load_delay = 1000;
+        (
+            function () {
+                var canvas = $('#canvas');
+                var bgm = document.getElementById('bgm');
+                var width = canvas.width();
+                var height = canvas.height();
+                canvas.attr("width", width);
+                canvas.attr("height", height);
+                var opts = {
+                    seed: {
+                        x: width / 2 - 20,
+                        color: "rgb(190, 26, 37)",
+                        scale: 2
+                    },
+                    branch: [[535, 680, 570, 250, 500, 200, 30, 100, [[540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]], [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]], [539, 281, 537, 248, 534, 217, 3, 40], [546, 397, 413, 247, 328, 244, 9, 80, [[427, 286, 383, 253, 371, 205, 2, 40], [498, 345, 435, 315, 395, 330, 4, 60]]], [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]]]],
+                    bloom: {
+                        num: 700,
+                        width: 1080,
+                        height: 650,
+                    },
+                    footer: {
+                        width: 1100,
+                        height: 5,
+                        speed: 10,
+                    }
+                };
+                var tree = new Tree(canvas[0], width, height, opts);
+                var seed = tree.seed;
+                var foot = tree.footer;
+                var hold = 1;
+
+                canvas.click(function (e) {
+                    var offset = canvas.offset(),
+                        x,
+                        y;
+                    x = e.pageX - offset.left;
+                    y = e.pageY - offset.top;
+                    if (seed.hover(x, y)) {
+                        hold = 0;
+                        canvas.unbind("click");
+                        canvas.unbind("mousemove");
+                        canvas.removeClass('hand');
+                        bgm.play();
+                    }
+                }).mousemove(function (e) {
+                    var offset = canvas.offset(),
+                        x,
+                        y;
+                    x = e.pageX - offset.left;
+                    y = e.pageY - offset.top;
+                    canvas.toggleClass('hand', seed.hover(x, y));
+                });
+                var seedAnimate = eval(Jscex.compile("async",
+                    function () {
+                        seed.draw();
+                        if (auto_load) {
+                            hold = 0;
+                        }
+                        while (hold) {
+                            $await(Jscex.Async.sleep(10));
+                        }
+                        while (seed.canScale()) {
+                            seed.scale(0.95);
+                            $await(Jscex.Async.sleep(10));
+                        }
+                        while (seed.canMove()) {
+                            seed.move(0, 2);
+                            foot.draw();
+                            $await(Jscex.Async.sleep(10));
+                        }
+                    }));
+                var growAnimate = eval(Jscex.compile("async",
+                    function () {
+                        do {
+                            tree.grow();
+                            $await(Jscex.Async.sleep(10));
+                        } while (tree.canGrow());
+                    }));
+                var flowAnimate = eval(Jscex.compile("async",
+                    function () {
+                        do {
+                            tree.flower(2);
+                            $await(Jscex.Async.sleep(10));
+                        } while (tree.canFlower());
+                    }));
+                var moveAnimate = eval(Jscex.compile("async",
+                    function () {
+                        tree.snapshot("p1", 240, 0, 610, 680);
+                        while (tree.move("p1", 500, 0)) {
+                            foot.draw();
+                            $await(Jscex.Async.sleep(10));
+                        }
+                        foot.draw();
+                        tree.snapshot("p2", 500, 0, 610, 680);
+                        canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+                        canvas.css("background", "#ffe");
+                        $await(Jscex.Async.sleep(300));
+                        canvas.css("background", "none");
+                    }));
+                var jumpAnimate = eval(Jscex.compile("async",
+                    function () {
+                        var ctx = tree.ctx;
+                        while (true) {
+                            tree.ctx.clearRect(0, 0, width, height);
+                            tree.jump();
+                            foot.draw();
+                            $await(Jscex.Async.sleep(25));
+                        }
+                    }));
+                var textAnimate = eval(Jscex.compile("async",
+                    function () {
+                        var together = new Date();
+                        together.setFullYear(year, (month - 1), (day - 1));
+                        together.setHours(hour);
+                        together.setMinutes(minute);
+                        together.setSeconds(second);
+                        together.setMilliseconds(0);
+                        $("#code").show().typewriter();
+                        $("#clock-box").fadeIn(500);
+                        while (true) {
+                            timeElapse(together);
+                            $await(Jscex.Async.sleep(1000));
+                        }
+                    }));
+                document.addEventListener('DOMContentLoaded', function () {
+                    function audioAutoPlay() {
+                        bgm.play();
+                        document.addEventListener("WeixinJSBridgeReady", function () {
+                            bgm.play();
+                        }, false);
+                    }
+                    audioAutoPlay();
+                });
+                var runAsync = eval(Jscex.compile("async",
+                    function () {
+                        $await(seedAnimate());
+                        $await(growAnimate());
+                        $await(flowAnimate());
+                        $await(moveAnimate());
+                        textAnimate().start();
+                        $await(jumpAnimate());
+                    }));
+                runAsync().start();
+            })();
+    </script>
+</body>
+
+</html>
